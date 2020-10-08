@@ -4,10 +4,10 @@ class KF:
     def __init__(self, initial_x: float, 
                         initial_v: float,
                         accel_variance: float  ) -> None:
-        # mean of state GRV
+        # moyenne de l'état GRV
         self._x = np.array([initial_x, initial_v])
         self.accel_variance = accel_variance
-        #covariance of state GRV
+        #covariance de l'état GRV
         self._P = np.eye(2)
 
     def predict(self, dt: float) -> None:
@@ -21,6 +21,16 @@ class KF:
 
         self._P = new_P
         self._x = new_x
+
+    @property
+    def cov(self) -> np.array:
+        return self._P
+
+    @property
+    def mean(self) -> np.array:
+        return self._x
+
+
     @property
     def pos(self)-> float:
         return self._x[0]
