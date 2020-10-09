@@ -50,3 +50,4 @@ plt.plot([mu[1] + 2*np.sqrt(cov[1,1]) for mu, cov in zip(moys, covs)], 'r--')
 
 plt.show()
 plt.ginput(1)
+print("test")
