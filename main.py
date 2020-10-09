@@ -16,8 +16,13 @@ real_v = 0.9
 
 moys = []
 covs = []
+real_xs = []
+real_vs = []
 
 for step in range(NUM_STEPS):
+    if step > 500:
+        real_v *= 0.9
+
     covs.append(kf.cov)
     moys.append(kf.mean)
 
@@ -29,13 +34,15 @@ for step in range(NUM_STEPS):
                     meas_variance = meas_variance)
 
 
-
+    real_xs.append(real_x)
+    real_vs.append(real_v)
 
 
 
 plt.subplot(2,1,1)
 plt.title("Position")
 plt.plot([mu[0] for mu in moys], 'r')
+plt.plot(real_xs, 'b')
 plt.plot([mu[0] - 2*np.sqrt(cov[0,0]) for mu, cov in zip(moys, covs)], 'r--')
 plt.plot([mu[0] + 2*np.sqrt(cov[0,0]) for mu, cov in zip(moys, covs)], 'r--')
 
@@ -43,6 +50,7 @@ plt.plot([mu[0] + 2*np.sqrt(cov[0,0]) for mu, cov in zip(moys, covs)], 'r--')
 
 plt.subplot(2,1,2)
 plt.title("Velocity")
+plt.plot(real_vs, 'b')
 plt.plot([mu[1] for mu in moys], 'r')
 plt.plot([mu[1] - 2*np.sqrt(cov[1,1]) for mu, cov in zip(moys, covs)], 'r--')
 plt.plot([mu[1] + 2*np.sqrt(cov[1,1]) for mu, cov in zip(moys, covs)], 'r--')
@@ -50,4 +58,3 @@ plt.plot([mu[1] + 2*np.sqrt(cov[1,1]) for mu, cov in zip(moys, covs)], 'r--')
 
 plt.show()
 plt.ginput(1)
-print("test")

@@ -1,22 +1,36 @@
 import numpy as np 
 
+
+iX = 0
+iV = 1
+NUMVARS = iV + 1
+
+
 class KF:
     def __init__(self, initial_x: float, 
                         initial_v: float,
                         accel_variance: float  ) -> None:
         # moyenne de l'état GRV
-        self._x = np.array([initial_x, initial_v])
+        self._x = np.zeros(NUMVARS)
+        self._x[iX] = initial_x
+        self._x[iV] = initial_v
+        
         self.accel_variance = accel_variance
         #covariance de l'état GRV
-        self._P = np.eye(2)
+        self._P = np.eye(NUMVARS)
 
     def predict(self, dt: float) -> None:
         # x = F*x
         # P = F * P * Ft + G * Gt *a
+        F = np.eye(NUMVARS)
+        F[iX,iV] = dt
+
         F = np.array([[1, dt], [0,1]])
         new_x = F.dot(self._x)
 
-        G = np.array([0.5*dt**2,dt]).reshape((2,1))
+        G = np.zeros([2,1])
+        G[iX] = 0.5 * dt**2
+        G[iV] = dt
         new_P = F.dot(self._P).dot(F.T) + G.dot(G.T) * self.accel_variance
 
         self._P = new_P
@@ -57,9 +71,11 @@ class KF:
 
     @property
     def pos(self)-> float:
-        return self._x[0]
+        return self._x[iX]
     @property
     def vel(self)-> float:
-        return self._x[1]
+        return self._x[iV]
+
+    
 
 
