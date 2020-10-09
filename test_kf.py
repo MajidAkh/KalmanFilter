@@ -66,4 +66,4 @@ class TestKF(unittest.TestCase):
 
 
             self.assertLess(det_after, det_before)
-            print(det_after, det_before)
+            #print(det_after, det_before)
