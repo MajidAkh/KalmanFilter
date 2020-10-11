@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/majid/Bureau/kalmanfilter/KalmanFilter/cpp/build",
+  "command": "/bin/c++  -Dkf_cpp_EXPORTS -I/home/majid/Bureau/kalmanfilter/KalmanFilter/cpp/thirdparty/eigen -isystem /home/majid/anaconda3/include/python3.7m -isystem /home/majid/Bureau/kalmanfilter/KalmanFilter/cpp/thirdparty/pybind11/include  -g -fPIC -fvisibility=hidden   -o CMakeFiles/kf_cpp.dir/wrappers.cpp.o -c /home/majid/Bureau/kalmanfilter/KalmanFilter/cpp/wrappers.cpp",
+  "file": "/home/majid/Bureau/kalmanfilter/KalmanFilter/cpp/wrappers.cpp"
+}
+]
